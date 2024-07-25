@@ -9,7 +9,6 @@ const getHappyRatingsCount = async (
     const query = db.prepare(`
         SELECT COUNT(*)
         FROM checkins
-        WHERE rating = 4
     `);
 
     const checkins = query.all();

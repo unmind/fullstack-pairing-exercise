@@ -6,7 +6,6 @@ const db = new Database(":memory:");
 db.exec(`
   CREATE TABLE checkins(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rating INTEGER NOT NULL,
     comment TEXT NULL
   )
 `);

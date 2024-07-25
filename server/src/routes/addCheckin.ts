@@ -8,21 +8,16 @@ import {
 
 const addCheckin = async (req: express.Request, res: express.Response) => {
   try {
-    if (
-      !req.body.rating ||
-      typeof req.body.rating !== "number" ||
-      req.body.rating < 1 ||
-      req.body.rating > 4
-    ) {
+    if (!req.body.comment) {
       throw Error();
     }
 
-    const record = { rating: +req.body.rating, comment: req.body.comment };
+    const record = { comment: req.body.comment };
 
     db.exec(`
       INSERT INTO checkins
-        (rating, comment) 
-      VALUES (${record.rating}, '${record.comment}')
+        (comment) 
+      VALUES ('${record.comment}')
     `);
 
     await reportingService.reportNewCheckin(record);
