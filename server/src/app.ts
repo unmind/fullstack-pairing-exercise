@@ -1,13 +1,13 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import addCheckin from "./routes/addCheckin";
+import checkinController from "./routes/checkin";
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post("/checkin", addCheckin);
+app.post("/checkin", checkinController);
 
 export default app;
