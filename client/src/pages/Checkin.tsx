@@ -1,17 +1,6 @@
+import React, { useState } from "react";
 import styled from "styled-components";
-
-const RatingWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 50px 50px;
-`;
-
-const RatingLabel = styled.label`
-  font-size: 24px;
-  margin-right: 50px;
-`;
+import axiosInstance from "../libs/axios";
 
 const Comment = styled.textarea`
   padding: 50px;
@@ -30,16 +19,30 @@ const Container = styled.div`
 `;
 
 const Checkin = () => {
+  const [comment, setComment] = useState<string>();
+
+  const onCommentUpdate = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    setComment(e.currentTarget.value);
+  };
+
+  const onSubmit = () => {
+    axiosInstance.post("/checkin", {
+      comment,
+    });
+  };
+
   return (
     <Container>
-      <RatingWrapper>
-        <RatingLabel>Mood Rating</RatingLabel>
-      </RatingWrapper>
       <Comment
-        aria-label='comment-box'
-        placeholder='Note down any comments on your mood that come to mind'
-      ></Comment>
-      <Button aria-label='submit-button'>Submit</Button>
+        aria-label="comment-box"
+        placeholder="Note down any comments on your mood that come to mind"
+        onChange={onCommentUpdate}
+      >
+        {comment}
+      </Comment>
+      <Button aria-label="submit-button" disabled={false} onClick={onSubmit}>
+        Submit
+      </Button>
     </Container>
   );
 };
